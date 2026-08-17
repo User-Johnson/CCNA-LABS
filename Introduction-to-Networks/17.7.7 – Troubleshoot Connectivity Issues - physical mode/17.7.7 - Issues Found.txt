@@ -1,0 +1,14 @@
+======================================================================
+LAB 17.7.7: CONNECTIVITY DISCREPANCIES & REMEDIATION LOG
+======================================================================
+1. Host Configuration:
+   - PC-A: Missing default gateway; unable to route inter-VLAN / external traffic.
+
+2. Switch Configuration (S1):
+   - SVI (VLAN 1): Administratively disabled (missing 'no shutdown').
+   - Management Routing: Misconfigured 'ip default-gateway' address.
+   - Physical Layer: Duplex and speed negotiation mismatch on switchport.
+
+3. Router Configuration (R1):
+   - Routing Table: No default route (0.0.0.0 0.0.0.0) configured for external transit.
+======================================================================
