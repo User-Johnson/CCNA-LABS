@@ -1,0 +1,13 @@
+======================================================================
+LAB 17.7.6: CONNECTIVITY DISCREPANCIES & REMEDIATION LOG
+======================================================================
+1. Host Configuration (PC-01):
+   - Issue: Incorrect IPv4 host address and default gateway assigned.
+   - Impact: Host unable to communicate on local subnet or route to remote networks.
+   - Resolution: Updated IP addressing and gateway parameters to align with addressing table.
+
+2. Router Configuration (R1):
+   - Issue: Incorrect IPv4 address configured on interface GigabitEthernet0/1.
+   - Impact: Subnet addressing mismatch causing LAN-to-Gateway routing failure.
+   - Resolution: Reassigned correct IP address/prefix on interface G0/1 and verified interface status.
+======================================================================
