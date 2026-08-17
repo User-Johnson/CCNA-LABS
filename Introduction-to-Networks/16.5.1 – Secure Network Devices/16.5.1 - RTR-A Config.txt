@@ -1,0 +1,90 @@
+Current configuration : 1103 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+security passwords min-length 10
+!
+hostname RTR-A
+!
+login block-for 45 attempts 3 within 100
+!
+!
+enable secret 5 $1$mERr$JH/8D7z8qBmMqKshpAcP41
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username NETadmin secret 5 $1$mERr$KQzEYzUx3ThSVMzDuU.vr.
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name security.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.2.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended sl_def_acl
+ deny tcp any any eq telnet
+ deny tcp any any eq www
+ deny tcp any any eq 22
+ permit tcp any any eq 22
+!
+banner motd ^CUnauthorized access prohibited.^C
+!
+!
+!
+!
+line con 0
+ exec-timeout 7 0
+ password 7 08016F41070A5445415F4D
+ login
+!
+line aux 0
+!
+line vty 0 4
+ exec-timeout 7 0
+ login local
+ transport input ssh
+!
+!
+!
+end

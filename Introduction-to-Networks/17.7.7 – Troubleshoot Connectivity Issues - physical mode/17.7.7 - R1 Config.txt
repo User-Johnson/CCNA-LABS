@@ -1,0 +1,89 @@
+Building configuration...
+
+Current configuration : 932 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username admin01 privilege 15 secret 5 $1$mERr$WvpW0n5HghRrqnrwXCUUl.
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name ccna-lab.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no ip address
+!
+interface Loopback1
+ no ip address
+!
+interface GigabitEthernet0/0/0
+ ip address 10.1.1.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.0
+ duplex full
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 209.165.200.226 
+ip route 0.0.0.0 0.0.0.0 10.1.1.2 
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+banner motd ^C Authorized Users Only! ^C
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+end
