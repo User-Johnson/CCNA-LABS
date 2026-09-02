@@ -1,0 +1,23 @@
+======================================================================
+LAB 4.4.8: CONNECTIVITY DISCREPANCIES & REMEDIATION LOG
+======================================================================
+1. Switch Trunking Configuration (S1):
+   - Issue: Interface connecting to R1 was not configured as a trunk.
+   - Impact: Inter-VLAN traffic dropped at Layer 2 due to lack of 802.1Q tagging.
+   - Resolution: Configured interface connecting to R1 as an active trunk port using 'switchport mode trunk'.
+
+2. Router Interface State (R1):
+   - Issue: Sub-interface GigabitEthernet0/1.10 was administratively down.
+   - Impact: Gateway unreachable for VLAN 10 hosts.
+   - Resolution: Executed 'no shutdown' on sub-interface G0/1.10 to restore operational state.
+
+3. Router VLAN Encapsulation (R1):
+   - Issue: Sub-interfaces G0/1.10 and G0/1.30 were mapped to incorrect VLAN IDs.
+   - Impact: 802.1Q tag mismatch prevented proper Layer 3 frame de-encapsulation and routing.
+   - Resolution: Corrected dot1Q encapsulation parameters on both sub-interfaces ('encapsulation dot1Q 10' and 'encapsulation dot1Q 30').
+
+4. Host Configuration (PC3):
+   - Issue: Incorrect default gateway IPv4 address assigned.
+   - Impact: Host unable to route traffic outside of its local subnet.
+   - Resolution: Updated PC3 default gateway configuration to match the R1 G0/1.30 sub-interface IP address.
+======================================================================

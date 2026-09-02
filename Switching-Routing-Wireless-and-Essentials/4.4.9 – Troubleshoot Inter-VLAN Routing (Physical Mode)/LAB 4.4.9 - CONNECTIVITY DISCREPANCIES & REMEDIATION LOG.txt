@@ -1,0 +1,23 @@
+======================================================================
+LAB 4.4.9: CONNECTIVITY DISCREPANCIES & REMEDIATION LOG
+======================================================================
+1. Switch VLAN Database (S1):
+   - Issue: VLAN 13 was not created in the local VLAN database.
+   - Impact: Access ports assigned to VLAN 13 were inactive, preventing local traffic forwarding.
+   - Resolution: Created VLAN 13 in global configuration mode ('VLAN 13').
+
+2. Switch Trunking Configuration (S1):
+   - Issue: Interface FastEthernet0/5 was operating as an access port instead of a trunk.
+   - Impact: Multi-VLAN traffic across the trunk link was blocked.
+   - Resolution: Configured interface FastEthernet0/5 as a trunk using 'switchport mode trunk'.
+
+3. Native VLAN Configuration (S1 / R1):
+   - Issue: Native VLAN mismatch between S1 interface FastEthernet0/1 and R1 sub-interface GigabitEthernet0/0/1.4.
+   - Impact: CDP native VLAN mismatch errors logged and untagged traffic routed to the wrong sub-interface.
+   - Resolution: Configured R1 sub-interface G0/0/1.4 with the native keyword ('encapsulation dot1Q 4 native') to match S1.
+
+4. Router Sub-Interface Addressing (R1):
+   - Issue: Sub-interface GigabitEthernet0/0/1.13 was configured with an incorrect IPv4 address/mask.
+   - Impact: Subnet addressing mismatch prevented VLAN 13 hosts from reaching their default gateway.
+   - Resolution: Reassigned the correct IPv4 address and subnet mask on sub-interface G0/0/1.13.
+======================================================================
