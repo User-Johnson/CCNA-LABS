@@ -1,0 +1,100 @@
+Current configuration : 1447 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Edge_Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524LV4H
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.10.17 255.255.255.240
+ duplex auto
+ speed auto
+ ipv6 address FE80::E link-local
+ ipv6 address 2001:DB8:1:10::1/64
+!
+interface GigabitEthernet0/1
+ ip address 192.168.11.33 255.255.255.224
+ duplex auto
+ speed auto
+ ipv6 address FE80::E link-local
+ ipv6 address 2001:DB8:1:11::1/64
+!
+interface Serial0/0/0
+ ip address 10.10.10.2 255.255.255.252
+ ipv6 address FE80::E link-local
+ ipv6 address 2001:DB8:A:1::2/64
+!
+interface Serial0/0/1
+ ip address 10.10.10.6 255.255.255.252
+ ipv6 address FE80::E link-local
+ ipv6 address 2001:DB8:A:2::2/64
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/0 
+ip route 0.0.0.0 0.0.0.0 Serial0/0/1 5
+ip route 198.0.0.10 255.255.255.255 Serial0/0/0 
+ip route 198.0.0.10 255.255.255.255 Serial0/0/1 5
+!
+ip flow-export version 9
+!
+ipv6 route ::/0 2001:DB8:A:1::1
+ipv6 route ::/0 2001:DB8:A:2::1 5
+ipv6 route 2001:DB8:F:F::10/128 2001:DB8:A:1::1
+ipv6 route 2001:DB8:F:F::10/128 Serial0/0/1 5
+ipv6 route 2001:DB8:F:F::10/128 2001:DB8:A:2::1 5
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

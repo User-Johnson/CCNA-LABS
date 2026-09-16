@@ -1,0 +1,29 @@
+======================================================================
+LAB 16.3.1: CONNECTIVITY DISCREPANCIES & REMEDIATION LOG
+======================================================================
+1. IPv4 Default Static Route (R1):
+   - Issue: Static default route next-hop interface address is incorrect.
+   - Impact: Outbound traffic from LAN 1 destined for external subnets fails routing lookup.
+   - Resolution: Replaced next-hop IP with R2's S0/0/0 interface address ('ip route 0.0.0.0 0.0.0.0 172.31.1.193').
+
+2. IPv4 Static Routes (R2):
+   - Issue: The next-hop addresses for LAN 1 and LAN 3 static routes are reversed.
+   - Impact: Routing loop and packet loss; LAN 1 traffic routed towards R3 and LAN 3 traffic towards R1.
+   - Resolution: Corrected next-hop bindings:
+     * LAN 1: 'ip route 172.31.1.0 255.255.255.128 172.31.1.194'
+     * LAN 3: 'ip route 172.31.1.128 255.255.255.192 172.31.1.198'
+
+3. IPv6 Destination Prefix (R2):
+   - Issue: Static route for LAN 1 configured with an incorrect prefix (2001:DB6:1::/64).
+   - Impact: R2 drops return IPv6 traffic destined for LAN 1 hosts.
+   - Resolution: Removed typo route and configured 'ipv6 route 2001:DB8:1::/64 2001:DB8:2::194'.
+
+4. IPv4 Subnet Mask Mismatch (R3):
+   - Issue: Static route to LAN 1 configured with an incorrect mask (255.255.255.0 instead of /25).
+   - Impact: Routing table inconsistency; destination network mask does not match actual LAN 1 prefix.
+   - Resolution: Reconfigured static route using the proper mask ('ip route 172.31.1.0 255.255.255.128 Serial0/0/1').
+
+5. Missing IPv6 Static Route (R3):
+   - Issue: IPv6 static route to LAN 1 (2001:DB8:1::/64) is completely missing.
+   - Impact: End-to-end IPv6 reachability from LAN 3 / Server to LAN 1 is impossible.
+   - Resolution: Added directly connected static route 'ipv6 route 2001:DB8:1::/64 Serial0/0/1'.
